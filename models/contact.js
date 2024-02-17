@@ -14,6 +14,10 @@ const ContactSchema = new Schema({
         require: false,
         type: String
     },
+    picture: {
+        require: false,
+        type: String
+    }
 }, { timestamps: true });
 
 module.exports = model('contact', ContactSchema);

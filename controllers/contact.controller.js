@@ -48,6 +48,7 @@ const findById = async (req, res, next) => {
 const findByPhone = async (req, res, next) => {
     try {
         const phone = req.query.phone;
+        console.log(phone);
         const foundContact = await ContactModel.find({ phone: phone });
         res.status(StatusCodes.OK).json({ contact: foundContact })
     } catch (error) {
@@ -58,6 +59,7 @@ const findByPhone = async (req, res, next) => {
 const deleteContact = async (req, res, next) => {
     try {
         const id = req.query.id;
+        console.log(req.query.id);
         const deletedContact = await ContactModel.findByIdAndDelete(id);
         if (deletedContact) {
             res.status(StatusCodes.OK).json({ message: 'Contact deleted' });
