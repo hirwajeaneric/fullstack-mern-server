@@ -1,0 +1,331 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Full stack M.E.R.N Demo Contact APP",
+    "description": "This is the API Specification for a Full stack M.E.R.N Demo Contact APP that demonstrates how Front-end and Back-end interact using APIs.",
+    "contact": {
+      "email": "hirwajeric@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/license/mit"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Get source code",
+    "url": "https://github.com/hirwajeaneric/fullstack-mern-server.git"
+  },
+  "basePath": "/api/v1/contactapp",
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server"
+    },
+    {
+      "url": "https://contact-app-server-nxgi.onrender.com",
+      "description": "Production server"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "tags": [
+    {
+      "name": "contacts",
+      "description": "Operations pertaining to contacts"
+    },
+    {
+      "name": "auth",
+      "description": "Authentication related operations"
+    }
+  ],
+  "paths": {
+    "/api/v1/contactapp/contact/add": {
+      "post": {
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Add a new task",
+        "description": "Creates a new task with the provided details",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Task"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Task created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Validation errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/contactapp/contact/list": {
+      "get": {
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Get all tasks",
+        "description": "Retrieves a list of all tasks",
+        "responses": {
+          "200": {
+            "description": "Tasks retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/contactapp/contact/update": {
+      "put": {
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Update a task",
+        "description": "Updates an existing task with the provided details",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Task"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Task updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - Task not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/contactapp/contact/findById": {
+      "get": {
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Get a task by ID",
+        "description": "Retrieves a specific task based on its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - Task not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/contactapp/contact/delete": {
+      "delete": {
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Delete a task",
+        "description": "Deletes a task based on its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Task deleted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - Task not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Task": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Unique identifier of the task"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the task",
+            "required": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the task"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the task",
+            "enum": [
+              "Todo",
+              "In Progress",
+              "Completed",
+              "Late",
+              "Over-due"
+            ]
+          },
+          "dueDate": {
+            "type": "object",
+            "properties": {
+              "startDate": {
+                "type": "string",
+                "format": "date",
+                "description": "Start date of the due date"
+              },
+              "endDate": {
+                "type": "string",
+                "format": "date",
+                "description": "End date of the due date"
+              },
+              "startTime": {
+                "type": "string",
+                "description": "Start time of the due date"
+              },
+              "endTime": {
+                "type": "string",
+                "description": "End time of the due date"
+              },
+              "duration": {
+                "type": "number",
+                "description": "Duration of the task"
+              },
+              "durationType": {
+                "type": "string",
+                "enum": [
+                  "Minutes",
+                  "Hours",
+                  "Days",
+                  "Weeks",
+                  "Months"
+                ],
+                "description": "Type of duration (Minutes, Hours, Days, etc.)"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
