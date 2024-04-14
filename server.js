@@ -7,13 +7,13 @@ const allRouters = require('./routes');
 const app = express();
 app.use(express.json());
 
-var corsOptions = {
-    origin: ['http://localhost:5173', 'http://192.168.196.82:5273', 'http://localhost:5173', 'http://127.0.0.1:5273', 'https://contact-app-client-xbck.onrender.com', process.env.CLIENT_ADDRESS],
-    methods: 'GET, POST, PUT, DELETE',
-    allowedHeaders: 'Content-Type, Authorization'
-}
+// var corsOptions = {
+//     origin: ['http://localhost:5173', 'http://192.168.196.82:5273', 'http://localhost:5173', 'http://127.0.0.1:5273', 'https://contact-app-client-xbck.onrender.com', process.env.CLIENT_ADDRESS],
+//     methods: 'GET, POST, PUT, DELETE',
+//     allowedHeaders: 'Content-Type, Authorization'
+// }
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use('/api/v1/contactapp/', allRouters);
 
