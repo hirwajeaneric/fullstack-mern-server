@@ -42,7 +42,7 @@
     }
   ],
   "paths": {
-    "/contact/add": {
+    "/api/v1/contactapp/contact/add": {
       "post": {
         "tags": [
           "contacts"
@@ -124,7 +124,7 @@
         }
       }
     },
-    "/contact/delete": {
+    "/api/v1/contactapp/contact/delete": {
       "delete": {
         "tags": [
           "contacts"
@@ -177,7 +177,7 @@
         }
       }
     },
-    "/contact/findById": {
+    "/api/v1/contactapp/contact/findById": {
       "get": {
         "tags": [
           "contacts"
@@ -230,7 +230,7 @@
         }
       }
     },
-    "/contact/findByPhone": {
+    "/api/v1/contactapp/contact/findByPhone": {
       "get": {
         "tags": [
           "contacts"
@@ -285,7 +285,7 @@
         }
       }
     },
-    "/contact/list": {
+    "/api/v1/contactapp/contact/list": {
       "get": {
         "tags": [
           "contacts"
@@ -331,7 +331,7 @@
         }
       }
     },
-    "/contact/update": {
+    "/api/v1/contactapp/contact/update": {
       "put": {
         "tags": [
           "contacts"
@@ -413,7 +413,7 @@
         }
       }
     },
-    "/auth/signin": {
+    "/api/v1/contactapp/auth/signin": {
       "post": {
         "tags": [
           "auth"
@@ -511,7 +511,7 @@
         }
       }
     },
-    "/auth/signup": {
+    "/api/v1/contactapp/auth/signup": {
       "post": {
         "tags": [
           "auth"
@@ -600,7 +600,7 @@
         }
       }
     },
-    "/auth/delete": {
+    "/api/v1/contactapp/auth/delete": {
       "delete": {
         "tags": [
           "auth"
@@ -653,7 +653,7 @@
         }
       }
     },
-    "/auth/findById": {
+    "/api/v1/contactapp/auth/findById": {
       "get": {
         "tags": [
           "auth"
@@ -719,7 +719,7 @@
         }
       }
     },
-    "/auth/findByEmail": {
+    "/api/v1/contactapp/auth/findByEmail": {
       "get": {
         "tags": [
           "auth"
@@ -774,7 +774,7 @@
         }
       }
     },
-    "/auth/list": {
+    "/api/v1/contactapp/auth/list": {
       "get": {
         "tags": [
           "auth"
@@ -820,7 +820,7 @@
         }
       }
     },
-    "/auth/update": {
+    "/api/v1/contactapp/auth/update": {
       "put": {
         "tags": [
           "auth"
