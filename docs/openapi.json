@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Full stack M.E.R.N Demo Contact APP",
-    "description": "This is the API Specification for a Full stack M.E.R.N Demo Contact APP that demonstrates how Front-end and Back-end interact using APIs.",
+    "description": "This is the API Specifications for a Full stack M.E.R.N Demo Contact APP that demonstrates how Front-end and Back-end interact using APIs.",
     "contact": {
       "email": "hirwajeric@gmail.com"
     },
@@ -42,188 +42,48 @@
     }
   ],
   "paths": {
-    "/api/v1/contactapp/contact/add": {
+    "/contact/add": {
       "post": {
         "tags": [
           "contacts"
         ],
-        "summary": "Add a new task",
-        "description": "Creates a new task with the provided details",
+        "summary": "Add a new contact",
+        "description": "Add a new contact",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Task"
+                "type": "object",
+                "properties": {
+                  "fullName": {
+                    "type": "string",
+                    "description": "Full name of the contact",
+                    "example": "John Doe"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email address of the contact",
+                    "example": "johndoe@example.com"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "description": "Phone number of the contact",
+                    "example": "+1234567890"
+                  },
+                  "picture": {
+                    "type": "string",
+                    "description": "Profile picture URL of the contact",
+                    "example": "https://www.example.com/profile.jpg"
+                  }
+                }
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Task created successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request - Validation errors",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/contactapp/contact/list": {
-      "get": {
-        "tags": [
-          "tasks"
-        ],
-        "summary": "Get all tasks",
-        "description": "Retrieves a list of all tasks",
-        "responses": {
-          "200": {
-            "description": "Tasks retrieved successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Task"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/contactapp/contact/update": {
-      "put": {
-        "tags": [
-          "tasks"
-        ],
-        "summary": "Update a task",
-        "description": "Updates an existing task with the provided details",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Task"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Task updated successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found - Task not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/contactapp/contact/findById": {
-      "get": {
-        "tags": [
-          "tasks"
-        ],
-        "summary": "Get a task by ID",
-        "description": "Retrieves a specific task based on its ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Task retrieved successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found - Task not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/contactapp/contact/delete": {
-      "delete": {
-        "tags": [
-          "tasks"
-        ],
-        "summary": "Delete a task",
-        "description": "Deletes a task based on its ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Task deleted successfully",
+            "description": "Contact created successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -231,22 +91,838 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "Task deleted"
+                      "description": "Success message",
+                      "example": "Contact successfully added!"
+                    },
+                    "contact": {
+                      "type": "object",
+                      "description": "The newly created contact",
+                      "$ref": "#/components/schemas/Contact"
                     }
                   }
                 }
               }
             }
           },
-          "404": {
-            "description": "Not Found - Task not found",
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Error saving contact to database"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contact/delete": {
+      "delete": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Delete a contact",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "ID of the contact to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contact deleted successfully",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Success message",
+                      "example": "Contact deleted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Error deleting contact from database"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contact/findById": {
+      "get": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Get a contact by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "ID of contact"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contact found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contact": {
+                      "type": "object",
+                      "description": "The contact object",
+                      "$ref": "#/components/schemas/Contact"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Error finding contact in database"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contact/findByPhone": {
+      "get": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Get a contact by phone number",
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Phone number of the contact"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contact found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contact": {
+                      "type": "array",
+                      "description": "An array of contacts matching the phone number",
+                      "items": {
+                        "$ref": "#/components/schemas/Contact"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Error finding contact in database"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contact/list": {
+      "get": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Get a list of all contacts",
+        "responses": {
+          "200": {
+            "description": "List of contacts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contacts": {
+                      "type": "array",
+                      "description": "Array of contact objects",
+                      "items": {
+                        "$ref": "#/components/schemas/Contact"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Error fetching contacts from database"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contact/update": {
+      "put": {
+        "tags": [
+          "contacts"
+        ],
+        "summary": "Update a contact",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "ID of the contact to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fullName": {
+                    "type": "string",
+                    "description": "Full name of the contact"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email address of the contact"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "description": "Phone number of the contact"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Contact updated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "description": "Success message",
+                        "example": "Contact updated!"
+                      },
+                      "contact": {
+                        "type": "object",
+                        "description": "The updated contact object",
+                        "$ref": "#/components/schemas/Contact"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "error": {
+                        "type": "string",
+                        "description": "Error message",
+                        "example": "Error updating contact in database"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Sign in user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Email address of the user"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of the user"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User signed in successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "description": "User object without password",
+                      "properties": {
+                        "firstName": {
+                          "type": "string",
+                          "description": "First name of the user"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "description": "Last name of the user"
+                        },
+                        "email": {
+                          "type": "string",
+                          "description": "Email address of the user"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string",
+                      "description": "JWT access token"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid email or password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Invalid email or password!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Error signing in user"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Sign up a new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "description": "First name of the user"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "description": "Last name of the user"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email address of the user"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of the user"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Success message",
+                      "example": "Account created!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (e.g. email already exists)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "User with this email already exists"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Error creating user"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/delete": {
+      "delete": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Delete a user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "ID of the user to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Success message",
+                      "example": "User deleted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Error deleting user from database"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/findById": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Get a user by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "ID of the user to find"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "description": "The user object without password",
+                      "properties": {
+                        "firstName": {
+                          "type": "string",
+                          "description": "First name of the user"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "description": "Last name of the user"
+                        },
+                        "email": {
+                          "type": "string",
+                          "description": "Email address of the user"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Error finding user in database"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/findByEmail": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Get a user by email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Email address of the user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "array",
+                      "description": "An array of users matching the email address",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Error finding user in database"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/list": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Get a list of all users",
+        "responses": {
+          "200": {
+            "description": "List of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "description": "Array of user objects without password",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Error fetching users from database"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/update": {
+      "put": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Update a user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "ID of the user to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "description": "First name of the user"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "description": "Last name of the user"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email address of the user"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Success message",
+                      "example": "User updated!"
+                    },
+                    "user": {
+                      "type": "object",
+                      "description": "The updated user object without password",
+                      "properties": {
+                        "firstName": {
+                          "type": "string",
+                          "description": "First name of the user"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "description": "Last name of the user"
+                        },
+                        "email": {
+                          "type": "string",
+                          "description": "Email address of the user"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (e.g. email already exists)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "User with this email already exists"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message",
+                      "example": "Error updating user in database"
                     }
                   }
                 }
@@ -259,70 +935,49 @@
   },
   "components": {
     "schemas": {
-      "Task": {
+      "Contact": {
         "type": "object",
         "properties": {
-          "_id": {
+          "id": {
             "type": "string",
-            "description": "Unique identifier of the task"
+            "description": "Unique identifier for the contact"
           },
-          "name": {
+          "fullName": {
             "type": "string",
-            "description": "Name of the task",
-            "required": true
+            "description": "Full name of the contact"
           },
-          "description": {
+          "email": {
             "type": "string",
-            "description": "Description of the task"
+            "description": "Email address of the contact"
           },
-          "status": {
+          "phone": {
             "type": "string",
-            "description": "Status of the task",
-            "enum": [
-              "Todo",
-              "In Progress",
-              "Completed",
-              "Late",
-              "Over-due"
-            ]
+            "description": "Phone number of the contact"
           },
-          "dueDate": {
-            "type": "object",
-            "properties": {
-              "startDate": {
-                "type": "string",
-                "format": "date",
-                "description": "Start date of the due date"
-              },
-              "endDate": {
-                "type": "string",
-                "format": "date",
-                "description": "End date of the due date"
-              },
-              "startTime": {
-                "type": "string",
-                "description": "Start time of the due date"
-              },
-              "endTime": {
-                "type": "string",
-                "description": "End time of the due date"
-              },
-              "duration": {
-                "type": "number",
-                "description": "Duration of the task"
-              },
-              "durationType": {
-                "type": "string",
-                "enum": [
-                  "Minutes",
-                  "Hours",
-                  "Days",
-                  "Weeks",
-                  "Months"
-                ],
-                "description": "Type of duration (Minutes, Hours, Days, etc.)"
-              }
-            }
+          "picture": {
+            "type": "string",
+            "description": "Profile picture URL of the contact"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the user"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name of the user"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the user"
           }
         }
       }
