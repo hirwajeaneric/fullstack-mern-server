@@ -45,7 +45,7 @@
     "/api/v1/contactapp/contact/add": {
       "post": {
         "tags": [
-          "tasks"
+          "contacts"
         ],
         "summary": "Add a new task",
         "description": "Creates a new task with the provided details",
